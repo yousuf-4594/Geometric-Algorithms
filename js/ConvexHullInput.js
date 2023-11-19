@@ -10,6 +10,10 @@ import{
     BruteForceFunction
 }from './BruteForceAlgorithm.js'
 
+import{
+    QuickHullFunction
+}from './QuickHullAlgorithm.js'
+
 document.addEventListener("DOMContentLoaded", function () {
     
     var coordinatesArray = [];
@@ -59,6 +63,20 @@ document.addEventListener("DOMContentLoaded", function () {
         BruteForceFunction(pointsList,pointsList.length);
 
     };
+    window.QuickHull = function () {
+        console.log("Coordinates Array:", coordinatesArray);
 
+        var pointsList = coordinatesArray.map(coord => new Point(coord.x, coord.y));
+        
+        QuickHullFunction(pointsList,pointsList.length);
+
+    };
+
+
+
+
+
+
+    
 
 });

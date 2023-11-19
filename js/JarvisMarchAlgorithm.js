@@ -16,6 +16,7 @@ function orientation(p, q, r) {
     if (val == 0) return 0;
     return (val > 0)? 1: 2;
 } 
+export var speed = 2;
 
 export function convexHull(points, n) {
     if (n < 3) return;
@@ -36,7 +37,7 @@ export function convexHull(points, n) {
                     q = i;
                 }
                 resolve();
-            }, 100);
+            }, 100/speed);
         });
     }
 
@@ -54,7 +55,7 @@ export function convexHull(points, n) {
         p = q;
         drawhull(hull);
         if (p !== l) {
-            setTimeout(nextIteration, 200);
+            setTimeout(nextIteration, 200/speed);
         }
     }
     nextIteration();

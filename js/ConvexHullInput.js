@@ -3,8 +3,12 @@ import{
 }from './JarvisMarchAlgorithm.js'
 
 import{
-    convexHull,    
+    GrahamScanFunction
 }from './GrahamScanAlgorithm.js'
+
+import{
+    BruteForceFunction
+}from './BruteForceAlgorithm.js'
 
 document.addEventListener("DOMContentLoaded", function () {
     
@@ -44,7 +48,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var pointsList = coordinatesArray.map(coord => new Point(coord.x, coord.y));
         
-        convexHull(pointsList,pointsList.length);
+        GrahamScanFunction(pointsList,pointsList.length);
+
+    };
+    window.BruteForce = function () {
+        console.log("Coordinates Array:", coordinatesArray);
+
+        var pointsList = coordinatesArray.map(coord => new Point(coord.x, coord.y));
+        
+        BruteForceFunction(pointsList,pointsList.length);
 
     };
 

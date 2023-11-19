@@ -1,3 +1,11 @@
+class Point { 
+  constructor(x, y) { 
+      this.x = x; 
+      this.y = y; 
+  } 
+};
+
+
 function onSegment(p, q, r) { 
   if (q.x <= Math.max(p.x, r.x) && q.x >= Math.min(p.x, r.x) && 
       q.y <= Math.max(p.y, r.y) && q.y >= Math.min(p.y, r.y)) 
@@ -67,6 +75,28 @@ export function doIntersect2(p1, q1, p2, q2) {
   let y = y1 + ua * (y2 - y1);
   return { x, y };
 }
+
+export function doIntersect3(p0, p1, p2, p3) {
+  let s1 = new Point(p1.x - p0.x, p1.y - p0.y);
+  let s2 = new Point(p3.x - p2.x, p3.y - p2.y);
+
+  let s, t;
+  let x, y;
+  let i = new Point(-1, -1);
+  s = (-s1.y * (p0.x - p2.x) + s1.x * (p0.y - p2.y)) / (-s2.x * s1.y + s1.x * s2.y);
+  t = (s2.x * (p0.y - p2.y) - s2.y * (p0.x - p2.x)) / (-s2.x * s1.y + s1.x * s2.y);
+
+  if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
+      if (i.x != -1)
+          i.x = p0.x + (t * s1.x);
+      if (i.y != -1)
+          i.y = p0.y + (t * s1.y);
+      return { result: 1, x: p0.x + (t * s1.x), y: p0.y + (t * s1.y) };
+  }
+
+  return { result: 0, x: 0, y: 0 };
+}
+
 
 export function drawLines(p1, p2) {
   // ctx.clearRect(0, 0, canvas.width, canvas.height);

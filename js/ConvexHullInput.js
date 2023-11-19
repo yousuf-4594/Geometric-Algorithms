@@ -14,6 +14,10 @@ import{
     QuickHullFunction
 }from './QuickHullAlgorithm.js'
 
+import{
+    AndrewScanFunction
+}from './AndrewScanAlgorithm.js'
+
 document.addEventListener("DOMContentLoaded", function () {
     
     var coordinatesArray = [];
@@ -72,6 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     };
 
+    window.AdrewScan = function () {
+        console.log("Coordinates Array:", coordinatesArray);
+
+        var pointsList = coordinatesArray.map(coord => new Point(coord.x, coord.y));
+        
+        AndrewScanFunction(pointsList);
+
+    };
 
 
 

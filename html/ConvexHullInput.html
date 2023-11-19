@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Coordinates on Click</title>
+  <style>
+    .circle {
+      width: 10px;
+      height: 10px;
+      background-color: blue;
+      border-radius: 50%;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <form id="coordinatesForm">
+    <button type="button" onclick="convexhull()">Brute Force</button>
+    <button type="button" onclick="jarvisMarch()">Jarvis March</button>
+    <button type="button" onclick="GrahamScan()">Graham Scan</button>
+    <button type="button" onclick="submitCoordinates()">Quick Elimination</button>    
+  </form>
+  <canvas id="myCanvas" width="800" height="600"></canvas>
+  <script src="/js/ConvexHullInput.js" type="module"></script>
+</body>
+</html>

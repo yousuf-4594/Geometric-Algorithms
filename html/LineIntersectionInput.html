@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Coordinates on Click</title>
+  <style>
+    .circle {
+      width: 10px;
+      height: 10px;
+      background-color: blue;
+      border-radius: 50%;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <form id="coordinatesForm" action="{% url 'submit_coordinates' %}" method="post">
+    <button type="button" onclick="doIntersectMethod1()">Method 1</button>
+    <button type="button" onclick="doIntersectMethod2()">Method 2</button>
+  </form>
+  <canvas id="myCanvas" width="800" height="600"></canvas>
+  <script src="/js/LineintersectionInput.js" type="module"></script>
+
+</body>
+</html>

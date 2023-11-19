@@ -35,6 +35,43 @@ document.addEventListener("DOMContentLoaded", function () {
         coordinatesArray.push({ x: xPosition, y: yPosition });
     });
 
+
+    document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+    function handleFileSelect(event) {
+      var file = event.target.files[0];
+
+      if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var coordinatesText = e.target.result;
+          parseCoordinates(coordinatesText);
+        };
+        reader.readAsText(file);
+      }
+    }
+
+    function parseCoordinates(coordinatesText) {
+      var lines = coordinatesText.split('\n');
+      lines.forEach(function(line) {
+        var coordinates = line.split(',').map(function(coord) {
+          return parseInt(coord.trim());
+        });
+        if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+          createCircle(coordinates[0], coordinates[1]);
+          coordinatesArray.push({ x: coordinates[0], y: coordinates[1] });
+        }
+      });
+    }
+
+    function createCircle(x, y) {
+      var circle = document.createElement('div');
+      circle.className = 'circle';
+      circle.style.left = x + 'px';
+      circle.style.top = y + 'px';
+      document.body.appendChild(circle);
+    }
+    
     
     class Point { 
         constructor(x, y) { 

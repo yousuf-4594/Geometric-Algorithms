@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Store Coordinates on Click</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <style>
     .circle {
       width: 10px;
@@ -12,16 +13,100 @@
       border-radius: 50%;
       position: absolute;
     }
+    #myCanvas {
+      background: linear-gradient(to right, rgb(255, 255, 255) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgb(255, 255, 255) 1px, transparent 1px);
+      background-size: 30px 30px;
+      background-color: rgb(251, 230, 211);
+      border-radius: 10px;
+      border-color: black;
+      border-width: 10px;
+    }
+    .custom-width {
+      max-width: 800px;
+      margin-left: 10px;
+    }
+    .custom-margin{
+      margin-left: 20px;
+    }
   </style>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="../assets/brandlogo2.png" style="margin-right: 5px;margin-top: 3px;" alt="Logo" width="30" height="22" class="d-inline-block align-text-top">
+            CS2009
+        </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>              
+          <a class="nav-link" href="#">Analytics</a>
+          <a class="nav-link" href="#">Plans</a>
+          <a class="nav-link" href="#">About Us</a>
+          <a class="nav-link" href="#">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </nav>
 </head>
+
+<br><br>
 <body>
-  <form id="coordinatesForm" action="{% url 'submit_coordinates' %}" method="post">
-    <button type="button" onclick="doIntersectMethod1()">Method 1</button>
-    <button type="button" onclick="doIntersectMethod2()">Method 2</button>
-    <button type="button" onclick="doIntersectMethod3()">Method 3</button>
-  </form>
-  <canvas id="myCanvas" width="800" height="600"></canvas>
+
+  <div class="px-4 py-1 my-3 text-left">
+    <h1 class="display-5 fw-bold">Line Segment Intersection</h1>
+    <div class="col-lg-6 ">
+      <p class="lead mb-4 ">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-left">
+      </div>
+    </div>
+  </div>
+
+  <h3 class="custom-margin">Calculate using:</h3>
+  <br>
+  <div id="coordinatesForm" class="btn-group me-2 custom-margin" role="group" aria-label="Large button group">
+    <input type="radio" class="btn-check" name="coordinateRadio" id="radio1" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" data-function="doIntersectMethod1">
+    <label class="btn btn-outline-secondary" for="radio1">Orientation Test Method</label>
+
+    <input type="radio" class="btn-check" name="coordinateRadio" id="radio2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" data-function="doIntersectMethod2">
+    <label class="btn btn-outline-secondary" for="radio2">Relative Gradient Method</label>
+
+    <input type="radio" class="btn-check" name="coordinateRadio" id="radio3" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample3" data-function="doIntersectMethod3">
+    <label class="btn btn-outline-secondary" for="radio3">Crammer intersect</label>
+  </div>
+
+  <button type="button" class="btn btn-outline-primary" onclick="compute()" id="liveToastBtn">Compute</button>
+
+
+  <br><br>
+  <div id="intersectionAlert" class="alert alert-dark custom-width custom-margin" role="alert">
+    Status 
+  </div>
+
+  <br>
+
+  <div class=" custom-margin" id="canvasDiv">
+    <canvas id="myCanvas" width="800" height="800"></canvas>
+  </div>
+
+
+  <script>
+    function compute() {
+        const selectedRadio = document.querySelector('input[name="coordinateRadio"]:checked');
+        if (selectedRadio) {
+            const functionName = selectedRadio.getAttribute('data-function');
+            window[functionName]();
+        } else {
+            console.log("No radio button selected");
+        }
+    }
+  </script>
+
+
   <script src="/js/LineintersectionInput.js" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
 </html>

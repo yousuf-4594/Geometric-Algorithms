@@ -102,7 +102,7 @@ export function drawLines(p1, p2) {
   // ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Set the line color and width
   ctx.strokeStyle = 'black';
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 1;
 
   ctx.beginPath();
   ctx.moveTo(p1.x-2.5, p1.y-22.5);

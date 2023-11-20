@@ -98,11 +98,11 @@ export function doIntersect3(p0, p1, p2, p3) {
 }
 
 
-export function drawLines(p1, p2) {
+export function drawLines(p1, p2, color) {
   // ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Set the line color and width
-  ctx.strokeStyle = 'black';
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 3;
 
   ctx.beginPath();
   ctx.moveTo(p1.x-2.5, p1.y-22.5);

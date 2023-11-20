@@ -59,15 +59,15 @@ async function quickHull(a, n, p1, p2, side, hullArray) {
         hullArray.push(p2);
 
         hulloutput.push({p1,p2});        
-        await drawLines(p1, p2, 'black', 5);
+        await drawLines(p1, p2, "#782AF5", 6);
         return;
     }
 
     // Recur for the two parts divided by a[ind]
     await quickHull(a, n, a[ind], p1, -findSide(a[ind], p1, p2), hullArray);
-    await drawLines(a[ind], p1, 'blue');
+    await drawLines(a[ind], p1, "#46B530", 1.5);
     await quickHull(a, n, a[ind], p2, -findSide(a[ind], p2, p1), hullArray);
-    await drawLines(a[ind], p2, 'red');
+    await drawLines(a[ind], p2, "#F35959", 1.5);
 }
 
 

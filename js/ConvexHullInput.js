@@ -1,3 +1,5 @@
+var canvas = document.getElementById('myCanvas');
+
 import{
     convexHull,    
 }from './JarvisMarchAlgorithm.js'
@@ -23,6 +25,19 @@ document.addEventListener("DOMContentLoaded", function () {
     var coordinatesArray = [];
 
     document.addEventListener("click", function (event) {
+
+
+      var canvasRect = canvas.getBoundingClientRect();
+      var canvasTop = canvasRect.top;
+      var canvasLeft = canvasRect.left;
+
+      if (
+          event.clientX >= canvasLeft &&
+          event.clientX <= canvasLeft + canvas.width &&
+          event.clientY >= canvasTop &&
+          event.clientY <= canvasTop + canvas.height
+      ) {
+
         var circle = document.createElement("div");
         circle.className = "circle";
 
@@ -32,7 +47,16 @@ document.addEventListener("DOMContentLoaded", function () {
         circle.style.top = yPosition + "px";
 
         document.body.appendChild(circle);
-        coordinatesArray.push({ x: xPosition, y: yPosition });
+
+
+        var canvasRect = canvas.getBoundingClientRect();
+        var canvasTop = canvasRect.top;
+        console.log(canvasTop);
+
+
+        coordinatesArray.push({ x: xPosition-10, y: yPosition-canvasTop+27.5 });
+
+      }
     });
 
 
@@ -58,8 +82,13 @@ document.addEventListener("DOMContentLoaded", function () {
           return parseInt(coord.trim());
         });
         if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
-          createCircle(coordinates[0], coordinates[1]);
-          coordinatesArray.push({ x: coordinates[0], y: coordinates[1] });
+          var canvasRect = canvas.getBoundingClientRect();
+          var canvasTop = canvasRect.top;
+          
+          createCircle(coordinates[0]+10, coordinates[1]+canvasTop-27.5);
+
+          
+          coordinatesArray.push({ x: coordinates[0], y: coordinates[1]});
         }
       });
     }

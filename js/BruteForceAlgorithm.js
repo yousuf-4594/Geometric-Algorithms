@@ -15,7 +15,7 @@ function checkLine(point1, point2, allPoints) {
 
     function processPoint(k) {
         if (allPoints[k] !== point1 && allPoints[k] !== point2) {
-            drawLines(point1,point2, 'lightgreen', 1, true);
+            drawLines(point1,point2, "#464646", 2, true);
 
             highlightVertex(k);
 
@@ -63,7 +63,7 @@ export function BruteForceFunction(points, n) {
     function drawBufferLines() {
         // Draw lines stored in bufferTemp array
         bufferTemp.forEach(([p1, p2]) => {
-            drawLines(p1, p2, 'black', 1, false);
+            drawLines(p1, p2, "#782AF5", 5, false);
         });
 
     }
@@ -90,7 +90,7 @@ export function BruteForceFunction(points, n) {
 
 
     for (let i = 0; i < n; i++) {
-        for (let j = 0; j < n; j++) {
+        for (let j = i+1; j < n; j++) {
             processPair(i, j);
         }
     }
@@ -113,14 +113,14 @@ function drawLines(p1, p2, color, width=1, flag) {
 function changeCircleColor(index) {
     var circles = document.querySelectorAll(".circle");
     if (index >= 0 && index < circles.length) {        
-        circles[index].style.backgroundColor = 'red';
+        circles[index].style.backgroundColor = "#464646";
     }
 }
 
 function resetCircleColor(index) {
     var circles = document.querySelectorAll(".circle");
     if (index >= 0 && index < circles.length) {        
-        circles[index].style.backgroundColor = 'blue';
+        circles[index].style.backgroundColor = 'rgb(183, 0, 255)';
     }
 }
 

@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 circle.style.top = yPosition + "px";
 
                 if (coordinatesArray.length < 2) 
-                    circle.style.backgroundColor = "black";
+                    circle.style.backgroundColor = "#e36b79";
                 else
-                    circle.style.backgroundColor = "green";
+                    circle.style.backgroundColor = "#995cff";
                     
                     
                 document.body.appendChild(circle);
@@ -59,10 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 coordinatesArray.push({ x: xPosition-10, y: yPosition-canvasTop+27.5});
 
                 if (coordinatesArray.length === 2) 
-                    drawLines(coordinatesArray[0], coordinatesArray[1]);
+                    drawLines(coordinatesArray[0], coordinatesArray[1], "#e36b79");
                 
                 if (coordinatesArray.length === 4) 
-                    drawLines(coordinatesArray[2], coordinatesArray[3]);
+                    drawLines(coordinatesArray[2], coordinatesArray[3], "#995cff");
             }
         
         }

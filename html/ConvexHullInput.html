@@ -4,28 +4,125 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Store Coordinates on Click</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <style>
     .circle {
       width: 10px;
       height: 10px;
-      background-color: blue;
+      background-color: rgb(183, 0, 255);
       border-radius: 50%;
       position: absolute;
     }
+    #myCanvas {
+      background: linear-gradient(to right, rgb(255, 255, 255) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgb(255, 255, 255) 1px, transparent 1px);
+      background-size: 30px 30px;
+      background-color: rgba(65, 52, 88, 0.345);
+      border-radius: 10px;
+      border-color: black;
+      border-width: 10px;
+    }
+    .custom-width {
+      max-width: 800px;
+      margin-left: 10px;
+    }
+    .custom-margin{
+      margin-left: 20px;
+    }
+    .custom-width2 {
+      max-width: 527px;
+      margin-top: 10px;
+    }
+    .custom-width3 {
+      max-width: 663px;
+      margin-left: 35px;
+    }
   </style>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="../assets/brandlogo2.png" style="margin-right: 5px;margin-top: 3px;" alt="Logo" width="30" height="22" class="d-inline-block align-text-top">
+            CS2009
+        </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>              
+          <a class="nav-link" href="#">Analytics</a>
+          <a class="nav-link" href="#">Plans</a>
+          <a class="nav-link" href="#">About Us</a>
+          <a class="nav-link" href="#">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
 </head>
 <body>
-  <h1>Convex Hull Algorithms</h1>
-  <form id="coordinatesForm">
-    <button type="button" onclick="BruteForce()">Brute Force</button>
-    <button type="button" onclick="jarvisMarch()">Jarvis March</button>
-    <button type="button" onclick="GrahamScan()">Graham Scan</button>
-    <button type="button" onclick="QuickHull()">Quick Hull</button>    
-    <button type="button" onclick="AdrewScan()">Andrew Scan</button> 
-    <br> 
-    <input type="file" id="fileInput" onchange="handleFile()">
-  </form>
-  <canvas id="myCanvas" width="800" height="600"></canvas>
+
+  <div class="px-4 py-1 my-3 text-left">
+    <h1 class="display-5 fw-bold">Convex Hull Algorithms</h1>
+    <div class="col-lg-6 ">
+      <p class="lead mb-4 ">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-left">
+      </div>
+    </div>
+  </div>
+  
+
+  <h3 class="custom-margin">Calculate using:</h3>
+  <br>
+  <div id="coordinatesForm" class="btn-group me-2 custom-margin" role="group" aria-label="Large button group">
+    <input type="radio" class="btn-check" name="coordinateRadio" id="radio1" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample1" data-function="BruteForce">
+    <label class="btn btn-outline-secondary" for="radio1">Brute Force</label>
+
+    <input type="radio" class="btn-check" name="coordinateRadio" id="radio2" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" data-function="jarvisMarch">
+    <label class="btn btn-outline-secondary" for="radio2">Jarvis March</label>
+
+    <input type="radio" class="btn-check" name="coordinateRadio" id="radio3" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample3" data-function="GrahamScan">
+    <label class="btn btn-outline-secondary" for="radio3">Graham Scan</label>
+
+    <input type="radio" class="btn-check" name="coordinateRadio" id="radio4" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample4" data-function="QuickHull">
+    <label class="btn btn-outline-secondary" for="radio4">Quick Hull</label>
+
+    <input type="radio" class="btn-check" name="coordinateRadio" id="radio5" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample5" data-function="AdrewScan">
+    <label class="btn btn-outline-secondary" for="radio5">Andrew Scan</label>
+  </div>
+
+  <button type="button" class="btn btn-outline-primary" onclick="compute()" id="liveToastBtn">Compute</button>
+  
+
+  <br>
+
+  <div class="input-group ">
+    <input type="file" class="form-control custom-margin custom-width2" id="fileInput" >
+    <label class="input-group-text custom-width2" for="inputGroupFile02" >Upload vertices</label>
+    
+  </div>
+  <p class="custom-width3">Input file format:<br>x1, y1<br>x2, y2</p>
+  
+
+
+
+  <canvas id="myCanvas" class="custom-margin" width="800" height="800"></canvas>
+  
+  
+  <script>
+    function compute() {
+        const selectedRadio = document.querySelector('input[name="coordinateRadio"]:checked');
+        if (selectedRadio) {
+            const functionName = selectedRadio.getAttribute('data-function');
+            window[functionName]();
+        } else {
+            console.log("No radio button selected");
+        }
+    }
+  </script>
+
+
   <script src="/js/ConvexHullInput.js" type="module"></script>
 </body>
 </html>

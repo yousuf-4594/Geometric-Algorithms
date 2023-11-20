@@ -24,22 +24,22 @@ export async function AndrewScanFunction(points){
     for (var i = 0; i < points.length; i++) {
         await changeColor(points[points.length-1]);
         while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], points[i]) <= 0) {
-            await drawLines(lower[lower.length - 1], points[i], 'green', 0.5);
+            await drawLines(lower[lower.length - 1], points[i], 'green', 2.5);
             lower.pop();
         }
         lower.push(points[i]);
-        await drawhull(lower, 'red');
+        await drawhull(lower, "#F52A71");
     }
     await sleep(1000);
     var upper = [];
     for (var i = points.length - 1; i >= 0; i--) {
         await changeColor(points[points.length-1]);
         while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], points[i]) <= 0) {
-            await drawLines(lower[lower.length - 1], points[i], 'green', 0.5);
+            await drawLines(lower[lower.length - 1], points[i], 'green', 2.5);
             upper.pop();
         }
         upper.push(points[i]);
-        await drawhull(upper, 'blue');
+        await drawhull(upper, "#2A63F5");
     }
 
     upper.pop();
@@ -47,17 +47,22 @@ export async function AndrewScanFunction(points){
     let hull =  lower.concat(upper);
 
     await sleep(1000);
-    drawhull(hull, 'black');
+    drawhull(hull, "#782AF5");
 
 }
 
 function changeColor(pivot) {
-    var newPoint = { x: pivot.x, y: pivot.y };
+    var canvasRect = canvas.getBoundingClientRect();
+    var canvasTop = canvasRect.top;
+
+    var newPoint = { x: pivot.x+10, y: pivot.y +canvasTop-27.5};
+
+
 
     var circle = document.createElement("div");
     circle.className = "circle";
-    circle.style.left = pivot.x + "px";
-    circle.style.top = pivot.y + "px";
+    circle.style.left = pivot.x+10 + "px";
+    circle.style.top = pivot.y+canvasTop-27.5 + "px";
     circle.style.backgroundColor = 'red';
 
     document.body.appendChild(circle);
@@ -90,7 +95,7 @@ async function drawhull(pointsList, color) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 5;
 
     for (var i = 0; i < pointsList.length - 1; i++) {
         ctx.beginPath();

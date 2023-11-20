@@ -48,7 +48,7 @@ export function convexHull(points, n) {
 
         for (let i = 0; i < n; i++) {
             if (!hull.includes(points[i]))
-                drawLines(points[p], points[i], 'red');
+                drawLines(points[p], points[i], "#464646");
             await drawLineWithDelay(i);
         }
 
@@ -74,8 +74,8 @@ export function drawLines(p1, p2, color) {
 export function drawhull(pointsList) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#782AF5";
+    ctx.lineWidth = 5;
 
     for (var i = 0; i < pointsList.length - 1; i++) {
         ctx.beginPath();

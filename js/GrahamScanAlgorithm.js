@@ -77,11 +77,11 @@ export function GrahamScanFunction(points, n) {
         for (let i = 3; i < n; i++) {
             createPivotLines(points);
             while (hull.length > 1 && orientation(nextToTop(hull), hull[hull.length - 1], points[i]) !== 2) {
-                drawLines( hull[hull.length - 1], nextToTop(hull), 'red', 5);
+                drawLines( hull[hull.length - 1], nextToTop(hull), "#FF6969", 5);
                 hull.pop();
                 await delay(300);
             }
-            drawLines( hull[hull.length - 1], points[i], 'green');
+            drawLines( hull[hull.length - 1], points[i], "#4FED6F", 5);
             await delay(500);
             hull.push(points[i]);
             drawhull(hull);
@@ -97,19 +97,23 @@ function delay(ms) {
 }
 function createPivotLines(points){
     let pivot = points[0];
-    for(let i=0;i<points.length;i++){
-        drawLines(pivot, points[i], 'lightblue', 0.5);
-    }
 
+    for(let i=0;i<points.length;i++){
+        drawLines(pivot, points[i], "#464646", 0.5);
+    }
 }
 
 function changeColor(pivot){
-    var newPoint = { x: pivot.x, y: pivot.y };
+
+    var canvasRect = canvas.getBoundingClientRect();
+    var canvasTop = canvasRect.top;
+
+    var newPoint = { x: pivot.x+10, y: pivot.y +canvasTop-27.5};
 
     var circle = document.createElement("div");
     circle.className = "circle";
-    circle.style.left = pivot.x + "px";
-    circle.style.top = pivot.y + "px";
+    circle.style.left = pivot.x+10 + "px";
+    circle.style.top = pivot.y+canvasTop-27.5 + "px";
     circle.style.backgroundColor = 'red';
 
     document.body.appendChild(circle);
@@ -132,8 +136,8 @@ export function drawhull(pointsList, connect=false) {
         console.log(pointsList[i]);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#782AF5";
+    ctx.lineWidth = 5;
 
     for (var i = 0; i < pointsList.length - 1; i++) {
         ctx.beginPath();
